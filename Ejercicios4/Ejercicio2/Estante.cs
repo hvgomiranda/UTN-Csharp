@@ -44,7 +44,7 @@ namespace Ejercicio2
 
             foreach(Producto producto in e.Productos)
             {
-                if(producto.Equals(p))
+                if(producto == p)
                 {
                     dev = true;
                     break;
@@ -62,14 +62,17 @@ namespace Ejercicio2
         public static bool operator +(Estante e, Producto p)
         {
             bool sePuedeAgregar = false;
-            int tam = e.Productos.Length;
-            for(int i=0; i <tam; i++)
+            if(!(e == p))
             {
-                if (e.Productos[i] is null)
+                int tam = e.Productos.Length;
+                for(int i=0; i <tam; i++)
                 {
-                    e.Productos[i] = p;
-                    sePuedeAgregar = true;
-                    break;
+                    if (e.Productos[i] is null)
+                    {
+                        e.Productos[i] = p;
+                        sePuedeAgregar = true;
+                        break;
+                    }
                 }
             }
             return sePuedeAgregar;

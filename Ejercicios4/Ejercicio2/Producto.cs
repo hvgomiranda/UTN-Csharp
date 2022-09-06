@@ -19,6 +19,11 @@ namespace Ejercicio2
             _precio = precio;
         }
 
+        public string GetCodigoDeBarras()
+        {
+            return _codigoDeBarra;
+        }
+
         public string GetMarca()
         {
             return _marca;
@@ -45,17 +50,27 @@ namespace Ejercicio2
         #region SOBRECARGA
         public static bool operator ==(Producto p, string marca)
         {
-            return p._marca == marca;
+            bool dev = false;
+            if (p is not null)
+            {
+                dev = (p._marca == marca);
+            }
+            return dev;
         }
 
         public static bool operator !=(Producto p, string marca)
         {
-            return !(p._marca == marca);
+            return !(p == marca);
         }
 
         public static bool operator ==(Producto p1, Producto p2)
         {
-            return p1 == p2;
+            bool dev = false;
+            if (p1 is not null && p2 is not null)
+            {
+                dev = (p1._marca == p2._marca && p1._codigoDeBarra == p2._codigoDeBarra);
+            }
+            return dev;
         }
 
         public static bool operator !=(Producto p1, Producto p2)
@@ -65,8 +80,16 @@ namespace Ejercicio2
 
         public static explicit operator string(Producto p)
         {
-            return p._codigoDeBarra;
+            StringBuilder sb = new StringBuilder();
+            sb.Append(" ");
+            if (p is not null)
+            {
+                sb.Clear();
+                sb.Append($"{p._codigoDeBarra}");
+            }
+            return sb.ToString();
         }
+
         #endregion
     }
 }
