@@ -21,16 +21,28 @@ namespace Ejercicio2
             _ubicacionEstante = ubicacion;
         }
 
-        public Producto[] GetProductos()
+        public Producto[] Productos
         {
-            return _productos;
+            get { return _productos; }
+        }
+
+        public static string MostrarEstante(Estante e)
+        {
+            StringBuilder sb = new StringBuilder();
+
+            foreach(Producto p in e.Productos)
+            {
+                sb.AppendLine(Producto.MostrarProducto(p));
+            }
+
+            return sb.ToString();
         }
 
         public static bool operator ==(Estante e, Producto p)
         {
             bool dev = false;
 
-            foreach(Producto producto in e.GetProductos())
+            foreach(Producto producto in e.Productos)
             {
                 if(producto.Equals(p))
                 {
@@ -44,23 +56,42 @@ namespace Ejercicio2
 
         public static bool operator !=(Estante e, Producto p)
         {
-            bool dev = true;
-
-            foreach (Producto producto in e.GetProductos())
-            {
-                if (producto.Equals(p))
-                {
-                    dev = false;
-                    break;
-                }
-            }
-
-            return dev;
+            return !(e == p);
         }
 
         public static bool operator +(Estante e, Producto p)
         {
-            if(e.GetProductos().Length > )
+            bool sePuedeAgregar = false;
+            int tam = e.Productos.Length;
+            for(int i=0; i <tam; i++)
+            {
+                if (e.Productos[i] is null)
+                {
+                    e.Productos[i] = p;
+                    sePuedeAgregar = true;
+                    break;
+                }
+            }
+            return sePuedeAgregar;
         }
+
+        public static Estante operator -(Estante e, Producto p)
+        {
+            if(e == p)
+            {
+                int conteo = 0;
+                foreach(Producto producto in e.Productos)
+                {
+                    if(producto == p)
+                    {
+                        e.Productos[conteo] = null;
+                        break;
+                    }
+                    conteo++;
+                }
+            }
+            return e;
+        }
+
     }
 }

@@ -19,12 +19,12 @@ namespace Ejercicio2
             _precio = precio;
         }
 
-        public string getMarca()
+        public string GetMarca()
         {
             return _marca;
         }
 
-        public float getPrecio()
+        public float GetPrecio()
         {
             return _precio;
         }
